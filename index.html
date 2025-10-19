@@ -93,6 +93,20 @@
             color: var(--secondary);
         }
 
+        .nav-links a.active {
+            color: var(--secondary);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient);
+        }
+
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -113,6 +127,16 @@
             flex: 1;
             padding-top: 100px;
             padding-bottom: 50px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .page-header {
@@ -145,6 +169,9 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             border: 1px solid var(--border);
             backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease 0.2s forwards;
         }
 
         .content-card h2 {
@@ -199,6 +226,9 @@
         .download-section {
             text-align: center;
             margin: 50px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease 0.4s forwards;
         }
 
         .download-card {
@@ -332,6 +362,11 @@
             padding: 20px;
             border-radius: 10px;
             border-left: 4px solid var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
         }
 
         .feature-item h4 {
@@ -350,6 +385,67 @@
             margin-top: 30px;
         }
 
+        /* Hero Section for Homepage */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(108, 92, 231, 0.2), transparent 50%),
+                        radial-gradient(circle at bottom left, rgba(0, 206, 201, 0.2), transparent 50%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            color: var(--gray);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(108, 92, 231, 0.1);
+            transform: translateY(-5px);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .navbar {
@@ -359,6 +455,15 @@
             
             .page-header h1 {
                 font-size: 2.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
             }
             
             .content-card {
@@ -377,70 +482,24 @@
     <header>
         <div class="container">
             <nav class="navbar">
-                <a href="index.html" class="logo">
+                <a href="#" class="logo" data-page="home">
                     <i class="fas fa-rocket logo-icon"></i>
                     Pintuxx
                 </a>
                 <div class="nav-links">
-                    <a href="index.html">Главная</a>
-                    <a href="download.html">Скачать</a>
-                    <a href="documentation.html">Документация</a>
-                    <a href="privacy.html">Конфиденциальность</a>
-                    <a href="license.html">Лицензия</a>
+                    <a href="#" data-page="home">Главная</a>
+                    <a href="#" data-page="download">Скачать</a>
+                    <a href="#" data-page="documentation">Документация</a>
+                    <a href="#" data-page="privacy">Конфиденциальность</a>
+                    <a href="#" data-page="license">Лицензия</a>
                 </div>
             </nav>
         </div>
     </header>
 
-    <!-- Main Content - This will change for each page -->
-    <main class="main-content">
-        <div class="container">
-            <!-- This content will be replaced by the specific page content -->
-            <div id="page-content">
-                <!-- Default content (index.html) -->
-                <div class="page-header">
-                    <h1>Pintuxx Game Launcher</h1>
-                    <p>Современный кроссплатформенный менеджер игр с автоматическими обновлениями и безопасными загрузками</p>
-                </div>
-
-                <div class="content-card">
-                    <h2><i class="fas fa-star"></i> О проекте</h2>
-                    <p>Pintuxx Game Launcher - это современное приложение для управления играми, созданное разработчиком <strong>developercreatinon</strong>. Лаунчер предоставляет удобную платформу для обнаружения, установки и запуска игр из удаленного репозитория.</p>
-                    
-                    <h3>Основные возможности</h3>
-                    <div class="feature-grid">
-                        <div class="feature-item">
-                            <h4><i class="fas fa-shield-alt"></i> Безопасность</h4>
-                            <p>Проверка целостности файлов через MD5 хеши, SSL/TLS поддержка с настраиваемой проверкой сертификатов.</p>
-                        </div>
-                        <div class="feature-item">
-                            <h4><i class="fas fa-sync-alt"></i> Автообновления</h4>
-                            <p>Автоматическая проверка обновлений лаунчера и игр. Безопасный процесс обновления с возможностью отката.</p>
-                        </div>
-                        <div class="feature-item">
-                            <h4><i class="fas fa-palette"></i> Современный UI</h4>
-                            <p>Темная тема с последовательным стилем, адаптивный макет карточек игр с прокруткой.</p>
-                        </div>
-                        <div class="feature-item">
-                            <h4><i class="fas fa-tachometer-alt"></i> Производительность</h4>
-                            <p>Параллельные загрузки, возобновление прерванных операций, интеллектуальное кэширование данных.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="download-section">
-                    <div class="download-card">
-                        <i class="fas fa-download app-icon"></i>
-                        <h2>Скачать Pintuxx Launcher</h2>
-                        <p>Последняя версия с улучшенной производительностью и новыми функциями</p>
-                        <div class="version-info">Версия 1.0.0</div>
-                        <a href="download.html" class="btn btn-primary">
-                            <i class="fas fa-download"></i> Перейти к загрузке
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+        <!-- Content will be dynamically generated by JavaScript -->
     </main>
 
     <!-- Footer -->
@@ -454,16 +513,16 @@
                 <div class="footer-column">
                     <h3>Навигация</h3>
                     <ul class="footer-links">
-                        <li><a href="index.html">Главная</a></li>
-                        <li><a href="download.html">Скачать</a></li>
-                        <li><a href="documentation.html">Документация</a></li>
+                        <li><a href="#" data-page="home">Главная</a></li>
+                        <li><a href="#" data-page="download">Скачать</a></li>
+                        <li><a href="#" data-page="documentation">Документация</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Правовая информация</h3>
                     <ul class="footer-links">
-                        <li><a href="privacy.html">Политика конфиденциальности</a></li>
-                        <li><a href="license.html">Лицензия MIT</a></li>
+                        <li><a href="#" data-page="privacy">Политика конфиденциальности</a></li>
+                        <li><a href="#" data-page="license">Лицензия MIT</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -481,49 +540,74 @@
     </footer>
 
     <script>
-        // Определяем текущую страницу и загружаем соответствующий контент
-        document.addEventListener('DOMContentLoaded', function() {
-            const path = window.location.pathname;
-            const page = path.split("/").pop() || "index.html";
+        // Page Content Templates
+        const pageTemplates = {
+            home: `
+                <div class="hero">
+                    <div class="container">
+                        <div class="hero-content">
+                            <h1>Pintuxx Game Launcher</h1>
+                            <p>Современный кроссплатформенный менеджер игр с автоматическими обновлениями и безопасными загрузками</p>
+                            <div class="hero-buttons">
+                                <a href="#" class="btn btn-primary" data-page="download">
+                                    <i class="fas fa-download"></i> Скачать сейчас
+                                </a>
+                                <a href="#" class="btn btn-secondary" data-page="documentation">
+                                    <i class="fas fa-book"></i> Документация
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="container">
+                    <div class="content-card">
+                        <h2><i class="fas fa-star"></i> О проекте</h2>
+                        <p>Pintuxx Game Launcher - это современное приложение для управления играми, созданное разработчиком <strong>developercreatinon</strong>. Лаунчер предоставляет удобную платформу для обнаружения, установки и запуска игр из удаленного репозитория.</p>
+                        
+                        <h3>Основные возможности</h3>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <h4><i class="fas fa-shield-alt"></i> Безопасность</h4>
+                                <p>Проверка целостности файлов через MD5 хеши, SSL/TLS поддержка с настраиваемой проверкой сертификатов.</p>
+                            </div>
+                            <div class="feature-item">
+                                <h4><i class="fas fa-sync-alt"></i> Автообновления</h4>
+                                <p>Автоматическая проверка обновлений лаунчера и игр. Безопасный процесс обновления с возможностью отката.</p>
+                            </div>
+                            <div class="feature-item">
+                                <h4><i class="fas fa-palette"></i> Современный UI</h4>
+                                <p>Темная тема с последовательным стилем, адаптивный макет карточек игр с прокруткой.</p>
+                            </div>
+                            <div class="feature-item">
+                                <h4><i class="fas fa-tachometer-alt"></i> Производительность</h4>
+                                <p>Параллельные загрузки, возобновление прерванных операций, интеллектуальное кэширование данных.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
             
-            // Если это не главная страница, загружаем соответствующий контент
-            if (page !== "index.html") {
-                loadPageContent(page);
-            }
-            
-            // Подсветка активной ссылки в навигации
-            const navLinks = document.querySelectorAll('.nav-links a');
-            navLinks.forEach(link => {
-                if (link.getAttribute('href') === page) {
-                    link.style.color = 'var(--secondary)';
-                }
-            });
-        });
-        
-        function loadPageContent(page) {
-            const contentContainer = document.getElementById('page-content');
-            
-            // Для простоты реализации используем условную логику
-            // В реальном проекте лучше загружать контент через AJAX или иметь отдельные HTML файлы
-            
-            if (page === "download.html") {
-                contentContainer.innerHTML = `
+            download: `
+                <div class="container">
                     <div class="page-header">
                         <h1>Скачать Pintuxx Launcher</h1>
                         <p>Выберите подходящую версию для вашей операционной системы</p>
                     </div>
                     
-                    <div class="download-card">
-                        <i class="fas fa-download app-icon"></i>
-                        <h2>Pintuxx Launcher для Windows</h2>
-                        <p>Полная версия лаунчера с автоматическими обновлениями и всеми функциями</p>
-                        <div class="version-info">Версия 1.0.0 | 15 МБ</div>
-                        <a href="https://github.com/developercreatinon/pintuxx-launcher/releases" class="btn btn-primary">
-                            <i class="fab fa-windows"></i> Скачать для Windows
-                        </a>
-                        <p style="margin-top: 20px; font-size: 0.9rem; color: var(--gray);">
-                            <i class="fas fa-info-circle"></i> Требуется Windows 10 или новее
-                        </p>
+                    <div class="download-section">
+                        <div class="download-card">
+                            <i class="fas fa-download app-icon"></i>
+                            <h2>Pintuxx Launcher для Windows</h2>
+                            <p>Полная версия лаунчера с автоматическими обновлениями и всеми функциями</p>
+                            <div class="version-info">Версия 1.0.2 | 15 МБ</div>
+                            <a href="https://github.com/developercreatinon/pintuxx-launcher/releases" class="btn btn-primary">
+                                <i class="fab fa-windows"></i> Скачать для Windows
+                            </a>
+                            <p style="margin-top: 20px; font-size: 0.9rem; color: var(--gray);">
+                                <i class="fas fa-info-circle"></i> Требуется Windows 10 или новее
+                            </p>
+                        </div>
                     </div>
                     
                     <div class="content-card">
@@ -545,11 +629,13 @@
                         </ol>
                         
                         <h3>Поддержка</h3>
-                        <p>Если у вас возникли проблемы с установкой или использованием лаунчера, посетите страницу <a href="documentation.html">документации</a> или создайте issue в <a href="https://github.com/developercreatinon/pintuxx-launcher">репозитории проекта</a>.</p>
+                        <p>Если у вас возникли проблемы с установкой или использованием лаунчера, посетите страницу <a href="#" data-page="documentation">документации</a> или создайте issue в <a href="https://github.com/developercreatinon/pintuxx-launcher">репозитории проекта</a>.</p>
                     </div>
-                `;
-            } else if (page === "documentation.html") {
-                contentContainer.innerHTML = `
+                </div>
+            `,
+            
+            documentation: `
+                <div class="container">
                     <div class="page-header">
                         <h1>Документация</h1>
                         <p>Полное руководство по установке, настройке и использованию Pintuxx Launcher</p>
@@ -595,7 +681,7 @@
                         </ol>
                         
                         <h3>Установка для разработки</h3>
-                        <pre><code>git clone &lt;repository-url&gt;
+                        <pre><code>git clone https://github.com/DEVELOPERcreatinon/Pintuxx-Launcher.git
 cd pintuxx-launcher
 python launcher.py</code></pre>
                         
@@ -650,9 +736,11 @@ python launcher.py</code></pre>
                             <li>Игры запускаются в их соответствующих директориях установки</li>
                         </ol>
                     </div>
-                `;
-            } else if (page === "privacy.html") {
-                contentContainer.innerHTML = `
+                </div>
+            `,
+            
+            privacy: `
+                <div class="container">
                     <div class="page-header">
                         <h1>Политика конфиденциальности</h1>
                         <p>Как мы собираем, используем и защищаем вашу информацию</p>
@@ -660,7 +748,7 @@ python launcher.py</code></pre>
                     
                     <div class="content-card">
                         <h2><i class="fas fa-user-shield"></i> Конфиденциальность Pintuxx Launcher</h2>
-                        <p><strong>Дата вступления в силу:</strong> 17 октября 2023 года</p>
+                        <p><strong>Дата вступления в силу:</strong> 17 октября 2025 года</p>
                         
                         <p>Эта политика конфиденциальности описывает, как Pintuxx Launcher ("мы", "наш" или "приложение") собирает, использует и защищает вашу информацию при использовании нашего приложения.</p>
                         
@@ -705,9 +793,11 @@ python launcher.py</code></pre>
                         <h3>Контакты</h3>
                         <p>Если у вас есть какие-либо вопросы о этой политике конфиденциальности, пожалуйста, свяжитесь с нами через репозиторий проекта на GitHub: <a href="https://github.com/developercreatinon/pintuxx-launcher">github.com/developercreatinon/pintuxx-launcher</a></p>
                     </div>
-                `;
-            } else if (page === "license.html") {
-                contentContainer.innerHTML = `
+                </div>
+            `,
+            
+            license: `
+                <div class="container">
                     <div class="page-header">
                         <h1>Лицензия MIT</h1>
                         <p>Условия использования Pintuxx Launcher</p>
@@ -717,7 +807,7 @@ python launcher.py</code></pre>
                         <h2><i class="fas fa-balance-scale"></i> Лицензионное соглашение</h2>
                         
                         <div class="legal-section">
-                            <h3>Copyright (c) 2023 developercreatinon</h3>
+                            <h3>Copyright (c) 2025 developercreatinon</h3>
                             
                             <p>Настоящим предоставляется бесплатное разрешение любому лицу, получившему копию этого программного обеспечения и связанных файлов документации ("Программное обеспечение"), использовать Программное обеспечение без ограничений, включая без ограничений права на использование, копирование, изменение, объединение, публикацию, распространение, сублицензирование и/или продажу копий Программного обеспечения, а также лицам, которым предоставляется Программное обеспечение, при соблюдении следующих условий:</p>
                             
@@ -736,9 +826,117 @@ python launcher.py</code></pre>
                             <p>Эта лицензия не предоставляет права на использование товарных знаков, знаков обслуживания или логотипов "Pintuxx Launcher" или "developercreatinon". Для получения разрешения на использование товарных знаков, пожалуйста, свяжитесь с разработчиком.</p>
                         </div>
                     </div>
-                `;
+                </div>
+            `
+        };
+
+        // Page Management
+        class PageManager {
+            constructor() {
+                this.currentPage = 'home';
+                this.mainContent = document.getElementById('main-content');
+                this.navLinks = document.querySelectorAll('.nav-links a, .footer-links a');
+                
+                this.init();
+            }
+            
+            init() {
+                // Set up navigation
+                this.navLinks.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const page = link.getAttribute('data-page');
+                        if (page) {
+                            this.navigateTo(page);
+                        }
+                    });
+                });
+                
+                // Handle browser back/forward
+                window.addEventListener('popstate', (e) => {
+                    const page = e.state?.page || 'home';
+                    this.loadPage(page, false);
+                });
+                
+                // Load initial page
+                const urlParams = new URLSearchParams(window.location.search);
+                const page = urlParams.get('page') || 'home';
+                this.loadPage(page, false);
+            }
+            
+            navigateTo(page) {
+                // Update URL without reload
+                const url = new URL(window.location);
+                url.searchParams.set('page', page);
+                window.history.pushState({ page }, '', url);
+                
+                this.loadPage(page);
+            }
+            
+            loadPage(page, animate = true) {
+                if (!pageTemplates[page]) {
+                    page = 'home';
+                }
+                
+                this.currentPage = page;
+                
+                // Update active nav link
+                this.navLinks.forEach(link => {
+                    if (link.getAttribute('data-page') === page) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+                
+                // Update page content
+                if (animate) {
+                    this.mainContent.style.opacity = '0';
+                    this.mainContent.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        this.mainContent.innerHTML = pageTemplates[page];
+                        this.mainContent.style.opacity = '1';
+                        this.mainContent.style.transform = 'translateY(0)';
+                    }, 300);
+                } else {
+                    this.mainContent.innerHTML = pageTemplates[page];
+                }
+                
+                // Update page title
+                const titles = {
+                    home: 'Pintuxx Launcher - Современный менеджер игр',
+                    download: 'Скачать Pintuxx Launcher',
+                    documentation: 'Документация Pintuxx Launcher',
+                    privacy: 'Политика конфиденциальности',
+                    license: 'Лицензия MIT'
+                };
+                
+                document.title = titles[page] || titles.home;
+                
+                // Add event listeners to dynamic content
+                this.addDynamicEventListeners();
+            }
+            
+            addDynamicEventListeners() {
+                // Add event listeners to any dynamic links in the content
+                const dynamicLinks = this.mainContent.querySelectorAll('a[data-page]');
+                dynamicLinks.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const page = link.getAttribute('data-page');
+                        if (page) {
+                            this.navigateTo(page);
+                        }
+                    });
+                });
             }
         }
+
+        // Initialize the page manager when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new PageManager();
+        });
     </script>
 </body>
 </html>
